@@ -1,17 +1,15 @@
-import java.util.Objects;
+import java.util.Comparator;
 
 public class Departement implements Comparable<Departement> {
-    private int id,nb_employes;
-    private String nom_departement;
+    private int id,nbEmp;
+    private String nom;
 
-    public Departement(int id, int nb_employes, String nom_departement) {
+    public Departement(int id, int nbEmp, String nom) {
         this.id = id;
-        this.nb_employes = nb_employes;
-        this.nom_departement = nom_departement;
+        this.nbEmp = nbEmp;
+        this.nom = nom;
     }
-
-    public Departement() {
-    }
+   public Departement(){}
 
     public int getId() {
         return id;
@@ -21,43 +19,50 @@ public class Departement implements Comparable<Departement> {
         this.id = id;
     }
 
-    public int getNb_employes() {
-        return nb_employes;
+    public int getNbEmp() {
+        return nbEmp;
     }
 
-    public void setNb_employes(int nb_employes) {
-        this.nb_employes = nb_employes;
+    public void setNbEmp(int nbEmp) {
+        this.nbEmp = nbEmp;
     }
 
-    public String getNom_departement() {
-        return nom_departement;
+    public String getNom() {
+        return nom;
     }
 
-    public void setNom_departement(String nom_departement) {
-        this.nom_departement = nom_departement;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Departement that)) return false;
-        return getId() == that.getId() && getNb_employes() == that.getNb_employes() && this.getNom_departement().equals(that.getNom_departement());
-    }
-
-    /*@Override
-    public int hashCode() {
-        return Objects.hash(getId(), getNb_employes(), getNom_departement());
-    }*/
 
     @Override
     public String toString() {
         return "Departement{" +
                 "id=" + id +
-                ", nb_employes=" + nb_employes +
-                ", nom_departement='" + nom_departement + '\'' +
+                ", nbEmp=" + nbEmp +
+                ", nom='" + nom + '\'' +
                 '}';
     }
-    public int compareTo(Departement autreDepartement) {
-        return Integer.compare(this.id, autreDepartement.id);
+
+    @Override
+    public int hashCode() {
+        return id+nom.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj==this)return true;
+        if (obj==null)return false;
+        if(obj.getClass()!=this.getClass())
+            return false;
+        Departement de=(Departement) obj;
+        if(de.nom.equals(nom) &&de.id==id)
+            return true;
+        return false;
+    }
+
+    @Override
+    public int compareTo(Departement o) {
+        return this.id-o.id;
     }
 }

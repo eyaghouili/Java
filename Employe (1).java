@@ -1,16 +1,14 @@
 public class Employe implements Comparable<Employe>{
     private int id,grade;
-    private String nom,prenom,nom_depart;
+    private String nom,prenom,nomDep;
 
-    public Employe(int id, int grade, String nom, String prenom, String nom_depart) {
+
+    public Employe(int id, int grade, String nom, String prenom, String nomDep) {
         this.id = id;
         this.grade = grade;
         this.nom = nom;
         this.prenom = prenom;
-        this.nom_depart = nom_depart;
-    }
-
-    public Employe() {
+        this.nomDep = nomDep;
     }
 
     public int getId() {
@@ -45,33 +43,39 @@ public class Employe implements Comparable<Employe>{
         this.prenom = prenom;
     }
 
-    public String getNom_depart() {
-        return nom_depart;
+    public String getNomDep() {
+        return nomDep;
     }
 
-    public void setNom_depart(String nom_depart) {
-        this.nom_depart = nom_depart;
+    public void setNomDep(String nomDep) {
+        this.nomDep = nomDep;
     }
-    public boolean equals(Object obj)
-    {
-        if(this==obj)return true;
-        if(this==null)return false;
-        if(this.getClass()==obj.getClass())
-        {
-            Employe e=(Employe)obj;
-            return( this.id==e.id && this.nom.equals(e.nom));
-        }
+
+    @Override
+    public String toString() {
+        return "Employe{" +
+                "id=" + id +
+                ", grade=" + grade +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", nomDep='" + nomDep + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj==this) return true;
+        if(obj==null) return false;
+        if(obj.getClass()!=this.getClass())
+            return false;
+        Employe em=(Employe) obj;
+        if(em.id==id && em.nom.equals(nom))
+            return true;
         return false;
-    }
-    public String toString()
-    {
-        return "id:"+id+"nom:"+nom+"prenom:"+prenom+
-                "nom departement:"+nom_depart+
-                "grade:"+grade;
     }
 
     @Override
     public int compareTo(Employe o) {
-        return this.nom.compareTo(o.nom);
+        return this.id-o.id;
     }
 }

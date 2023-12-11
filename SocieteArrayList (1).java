@@ -1,78 +1,52 @@
-import java.lang.reflect.Array;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class SocieteArrayList implements IGestion<Employe>{
 
-    List<Employe> listeEmploye;
-
-    SocieteArrayList()
-    {
-        listeEmploye=new ArrayList<>();
-    }
-    public List<Employe> getListeEmploye() {
-        return listeEmploye;
-    }
-
-    public void setListeEmploye(List<Employe> listeEmploye) {
-        this.listeEmploye = listeEmploye;
-    }
-
+    private ArrayList<Employe> list=new ArrayList<>();
     @Override
     public void ajouterEmploye(Employe employe) {
-        listeEmploye.add(employe);
+        list.add(employe);
     }
 
     @Override
     public boolean rechercherEmploye(String nom) {
-        for(Employe e:listeEmploye)
-        {
-            if(e.getNom()==nom)
-                return true;
-        }
-        return false;
+       for (int i=0;i<list.size();i++)
+       {
+           if(list.get(i).getNom().equals(nom))
+               return true;
+       }
+
+       return false;
     }
 
     @Override
     public boolean rechercherEmploye(Employe employe) {
-        for(Employe e:listeEmploye)
-        {
-            if(e==employe)
-                return true;
-        }
-        return false;
+        return list.contains(employe);//redefinition equals
     }
 
     @Override
-    public void supprimerEmploye(Employe employe) {
-        if (rechercherEmploye(employe))
-        {
-            listeEmploye.remove(employe);
-        }
-
+    public boolean supprimerEmploye(Employe employe) {
+      return list.remove(employe);//redefinition equals
     }
-
-
-
-
-
 
     @Override
     public void displayEmploye() {
-        for(Employe e:listeEmploye)
-        {
-            System.out.println(e);
-        }
-
+     for (int i=0;i<list.size();i++)
+     {
+         System.out.println(list.get(i));
+     }
+        //for (Employe e:list)
+          //  System.out.println(e);
     }
 
     @Override
     public void trierEmployeParId() {
-        Collections.sort(listeEmploye);
-
+        Collections.sort(list);
     }
 
-
+    @Override
     public void trierEmployeParNomDépartementEtGrade() {
-        Collections.sort(listeEmploye, new TriNomDepartementEtGrade());
+
     }
 }
